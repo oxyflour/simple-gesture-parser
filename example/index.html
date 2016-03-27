@@ -1,0 +1,71 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script src="../index.js"></script>
+<script>
+var gesture
+
+function onMouseDown(e) {
+	gesture = new GestureParser()
+	gesture.add(e.pageX, e.pageY)
+
+	dc.lastPoint = { x:e.pageX, y:e.pageY }
+	dc.clearRect(0, 0, canvas.width, canvas.height)
+
+	canvas.addEventListener('mousemove', onMouseMove)
+	canvas.addEventListener('mouseup', onMouseUp)
+}
+
+function onMouseMove(e) {
+	dc.beginPath()
+	dc.moveTo(dc.lastPoint.x, dc.lastPoint.y)
+	dc.lineTo(e.pageX, e.pageY)
+	dc.stroke()
+	dc.closePath()
+	dc.lastPoint = { x:e.pageX, y:e.pageY }
+
+	gesture.add(e.pageX, e.pageY)
+}
+
+function onMouseUp(e) {
+	var pts = gesture.get()
+
+	dc.beginPath();
+	pts.forEach(function(p, i) {
+		dc.arc(p.x, p.y, 5, 0, 2*Math.PI);
+		dc.fillText(i, p.x, p.y);
+	});
+	dc.closePath();
+	dc.fill();
+	dc.fillText(gesture.toString(), 10, 50);
+
+	canvas.removeEventListener('mousemove', onMouseMove)
+	canvas.removeEventListener('mouseup', onMouseUp)
+}
+
+var body = document.body
+body.style.margin = body.style.padding = 0
+body.style.overflow = 'hidden'
+
+var canvas = document.getElementById('c')
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
+canvas.style.background = '#eee'
+canvas.addEventListener('mousedown', onMouseDown)
+
+var dc = canvas.getContext('2d')
+dc.font = '30px Arial'
+dc.strokeStyle = 'rgba(0,128,255,0.5)'
+dc.fillStyle = 'rgba(0, 0, 0, 0.5)'
+dc.lineWidth = 3
+dc.fillText('use your mouse to stroke', 10, 50);
+
+</script>
+</body>
+</html>
