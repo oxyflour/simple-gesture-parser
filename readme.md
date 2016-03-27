@@ -7,21 +7,21 @@ see the index.html for a live example
 var gesture = new GestureParser({
 	// should be between 0 and 1
 	// more segments will be returned with a smaller value
-	maxDistToLineScale: 0.15
+	maxDistToLineScale: 0.13,
 
 	// should be greater than 0.5
 	// used to distinguish "→" and "→←"
-	maxDistToCenterScale: 0.55
+	maxDistToCenterScale: 0.55,
 
 	// should be greater than 1
 	// used to distinguish directions like "→", "↗" and "↘"
-	defaultParseSlope: 2.5
+	defaultParseSlope: 2.5,
 
 	// point will be ignore if distance to the last added one is less than 5
-	minDistanceToMove: 5
+	minDistanceToMove: 3,
 
 	// will try to reduce when there has been more than 8 points
-	minPointsToReduce: 8
+	minPointsToReduce: 5,
 })
 
 // add positions

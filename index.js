@@ -17,7 +17,7 @@ function GestureParser(opts) {
 	this.opts.maxDistToCenterScale = this.opts.maxDistToCenterScale || 0.55
 	this.opts.defaultParseSlope = this.opts.defaultParseSlope || 2.5
 	this.opts.minDistanceToMove = this.opts.minDistanceToMove || 3
-	this.opts.minPointsToReduce = this.opts.minPointsToReduce || 8
+	this.opts.minPointsToReduce = this.opts.minPointsToReduce || 5
 }
 
 GestureParser.prototype.shouldReduce = function(pts) {
